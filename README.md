@@ -20,8 +20,9 @@ This lab focuses on creating custom InSpec profiles, allowing participants to de
 <h2>Program walk-through:</h2>
 
 Install the InSpec package via script: <br/>
-- curl https://omnitruck.chef.io/install.sh | sudo bash -s -- -P inspec<br/>
- 
+```
+curl https://omnitruck.chef.io/install.sh | sudo bash -s -- -P inspec
+``` 
 <p align="center">
 <img src="https://i.imgur.com/qEqR86b.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 </p>
@@ -30,8 +31,9 @@ Install the InSpec package via script: <br/>
 <br />
 
 We have successfully installed Inspec tool, let’s explore the functionality it provides us: <br/>
-- inspec --help<br/>
- 
+```
+inspec --help
+``` 
 <p align="center">
 <img src="https://i.imgur.com/YcUuX6u.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 </p>
@@ -40,8 +42,9 @@ We have successfully installed Inspec tool, let’s explore the functionality it
 <br />
 
 Create a new folder and cd into that folder: <br/>
-- mkdir inspec-profile && cd inspec-profile<br/>
- 
+```
+mkdir inspec-profile && cd inspec-profile
+``` 
 <p align="center">
 <img src="https://i.imgur.com/1CiA3P7.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 </p>
@@ -50,8 +53,9 @@ Create a new folder and cd into that folder: <br/>
 <br />
 
 Create the Ubuntu profile: <br/>
-- inspec init profile ubuntu --chef-license accept<br/>
- 
+```
+inspec init profile ubuntu --chef-license accept
+``` 
 <p align="center">
 <img src="https://i.imgur.com/cih1QId.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 </p>
@@ -69,8 +73,9 @@ Run the following command to append the inspec task to the file at ubuntu/contro
 <br />
 
 Let’s validate the profile to make sure there are no syntax errors: <br/>
-- inspec check ubuntu<br/>
- 
+```
+inspec check ubuntu
+``` 
 <p align="center">
 <img src="https://i.imgur.com/ZrrY53Q.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 </p>
@@ -79,8 +84,9 @@ Let’s validate the profile to make sure there are no syntax errors: <br/>
 <br />
 
 Now run the profile on the local-machine before executing on the server: <br/>
-- inspec exec ubuntu<br/>
- 
+```
+inspec exec ubuntu
+``` 
 <p align="center">
 <img src="https://i.imgur.com/BbL9kFQ.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 </p>
@@ -89,8 +95,9 @@ Now run the profile on the local-machine before executing on the server: <br/>
 <br />
 
 Let’s try to run the custom profile created by us against the server. Before executing the profile we need to execute the below command to avoid being prompted with Yes or No when connecting to a server via ssh: <br/>
-- echo "StrictHostKeyChecking accept-new" >> ~/.ssh/config<br/>
- 
+```
+echo "StrictHostKeyChecking accept-new" >> ~/.ssh/config
+``` 
 <p align="center">
 <img src="https://i.imgur.com/5Xxt6uI.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 </p>
@@ -99,8 +106,9 @@ Let’s try to run the custom profile created by us against the server. Before e
 <br />
 
 Let’s run inspec with the following options: <br/>
-- inspec exec ubuntu -t ssh://root@prod-rcgsg0ei -i ~/.ssh/id_rsa --chef-license accept<br/>
- 
+```
+inspec exec ubuntu -t ssh://root@prod-rcgsg0ei -i ~/.ssh/id_rsa --chef-license accept
+``` 
 <p align="center">
 <img src="https://i.imgur.com/BRYOsIy.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 </p>
@@ -109,10 +117,11 @@ Let’s run inspec with the following options: <br/>
 <br />
 
 Use inspec init to create a new inspec profile with name challenge under /inspec-profile directory: <br/>
-- mkdir /inspec-profile <br />
-cd /inspec-profile<br />
-inspec init profile challenge --chef-license accept<br/>
- 
+```
+mkdir /inspec-profile 
+cd /inspec-profile
+inspec init profile challenge --chef-license accept
+``` 
 <p align="center">
 <img src="https://i.imgur.com/DYeFnuF.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 </p>
@@ -130,9 +139,10 @@ Edit our newly created Inspec skeleton to add four basic checks (system, passwor
 <br />
 
 Run the tests locally before setting it up in the CI pipeline: <br/>
-- inspec check challenge <br />
-inspec exec challenge <br />
- 
+```
+inspec check challenge
+inspec exec challenge 
+``` 
 <p align="center">
 <img src="https://i.imgur.com/vT2GAY0.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 <img src="https://i.imgur.com/8HuHQqb.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
@@ -142,7 +152,8 @@ inspec exec challenge <br />
 <br />
 
 Commit the inspec profile to the project’s repository using either the GitLab UI or Git commands: <br/>
-- git clone git@gitlab-ce-rcgsg0ei:root/django-nv.git
+```
+git clone git@gitlab-ce-rcgsg0ei:root/django-nv.git
 cd django-nv
 cp -r /inspec-profile/challenge challenge<br />
 git add challenge<br />
@@ -150,7 +161,7 @@ git config --global user.email "you@example.com"<br />
 git config --global user.name "Your Name"<br />
 git commit -m "Add custom inspec profile"<br />
 git push origin main<br />
- 
+``` 
 <p align="center">
 <img src="https://i.imgur.com/gFP8DIZ.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 </p>
@@ -162,7 +173,10 @@ Re-create gitlab-ci.yml file to check and execute profile using inspec only with
  
 <p align="center">
 <img src="https://i.imgur.com/C7n3XJa.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
- <br /> Results: <br />
+</p>
+<br /> 
+Results: <br />
+<p align="center">
 <img src="https://i.imgur.com/EQTixCg.png" height="80%" width="80%" alt="Disk Sanitization Step"/>
 </p>
 
